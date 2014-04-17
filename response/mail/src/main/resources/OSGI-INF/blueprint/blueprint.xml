@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd">
+
+	<property-placeholder persistent-id="fr.netapsys.devoxx.response.mail" update-strategy="reload" xmlns="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0">
+		<default-properties>
+		</default-properties>
+	</property-placeholder>
+	
+	<camelContext id="mailCamelContext" autoStartup="true" trace="false" xmlns="http://camel.apache.org/schema/blueprint">
+		<propertyPlaceholder id="properties" location="fr.netapsys.devoxx.response.mail.cfg"/>
+		<jmxAgent id="agent" disabled="true"/>
+		<routeBuilder ref="mailRoute" />
+	</camelContext>
+	
+	<bean id="mailProcessor" class="fr.netapsys.devoxx.response.mail.processor.MailProcessor" />
+	
+	<bean id="mailRoute" class="fr.netapsys.devoxx.response.mail.route.MailRoutes">
+		<property name="mailProcessor" ref="mailProcessor" />
+	</bean>
+	
+</blueprint>

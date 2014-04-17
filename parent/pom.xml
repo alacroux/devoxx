@@ -1,0 +1,194 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>fr.netapsys.devoxx</groupId>
+	<artifactId>devoxx-parent</artifactId>
+	<version>1.0.0</version>
+	<packaging>pom</packaging>
+	
+	<name>Devoxx Quizz - Parent</name>
+	
+	<distributionManagement>
+		<repository>
+			<id>devoxx</id>
+			<name>Référentiel pour la présentation Devoxx</name>
+			<url>https://devoxx.netapsys.fr/artifactory/devoxx
+			</url>
+		</repository>
+	</distributionManagement>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	
+	<properties>
+		<camel-version>2.12.3</camel-version>
+		<activemq-version>5.9.0</activemq-version>
+		<slf4j-version>1.7.6</slf4j-version>
+		<pax-exam-version>3.4.0</pax-exam-version>
+		<pax-url-version>1.6.0</pax-url-version>
+		<javax-inject-version>1</javax-inject-version>
+		<commons-lang-version>2.4_6</commons-lang-version>
+	</properties>
+	
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>fr.netapsys.devoxx.core</groupId>
+				<artifactId>api</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+		
+			<dependency>
+				<groupId>org.apache.camel</groupId>
+				<artifactId>camel-core</artifactId>
+				<version>${camel-version}</version>
+			</dependency>
+	
+			<dependency>
+				<groupId>org.apache.camel</groupId>
+				<artifactId>camel-blueprint</artifactId>
+				<version>${camel-version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>org.apache.camel</groupId>
+				<artifactId>camel-websocket</artifactId>
+				<version>${camel-version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>org.apache.camel</groupId>
+				<artifactId>camel-netty-http</artifactId>
+				<version>${camel-version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.camel</groupId>
+				<artifactId>camel-jackson</artifactId>
+				<version>${camel-version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>org.apache.camel</groupId>
+				<artifactId>camel-http4</artifactId>
+				<version>${camel-version}</version>
+			</dependency>
+	
+			<dependency>
+				<groupId>javax.inject</groupId>
+				<artifactId>javax.inject</artifactId>
+				<version>${javax-inject-version}</version>
+			</dependency>
+	
+			<dependency>
+				<groupId>org.ops4j.pax.exam</groupId>
+				<artifactId>pax-exam-container-karaf</artifactId>
+				<version>${pax-exam-version}</version>
+				<scope>test</scope>
+			</dependency>
+	
+			<dependency>
+				<groupId>org.ops4j.pax.exam</groupId>
+				<artifactId>pax-exam-junit4</artifactId>
+				<version>${pax-exam-version}</version>
+				<scope>test</scope>
+			</dependency>
+	
+			<dependency>
+				<groupId>org.ops4j.pax.exam</groupId>
+				<artifactId>pax-exam</artifactId>
+				<version>${pax-exam-version}</version>
+				<scope>test</scope>
+			</dependency>
+			
+			<dependency>
+				<groupId>org.ops4j.pax.url</groupId>
+				<artifactId>pax-url-aether</artifactId>
+				<version>${pax-url-version}</version>
+				<scope>test</scope>
+			</dependency>
+	
+			<dependency>
+				<groupId>org.apache.camel</groupId>
+				<artifactId>camel-jms</artifactId>
+				<version>${camel-version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>org.apache.camel</groupId>
+				<artifactId>camel-mail</artifactId>
+				<version>${camel-version}</version>
+			</dependency>
+	
+			<dependency>
+				<groupId>org.apache.activemq</groupId>
+				<artifactId>activemq-client</artifactId>
+				<version>${activemq-version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>org.apache.activemq</groupId>
+				<artifactId>activemq-pool</artifactId>
+				<version>${activemq-version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>org.apache.activemq</groupId>
+				<artifactId>activemq-camel</artifactId>
+				<version>${activemq-version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>org.apache.activemq</groupId>
+				<artifactId>activemq-kahadb-store</artifactId>
+				<version>${activemq-version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>org.apache.camel</groupId>
+				<artifactId>camel-test-blueprint</artifactId>
+				<version>${camel-version}</version>
+				<scope>test</scope>
+			</dependency>
+	
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<scope>provided</scope>
+				<version>${slf4j-version}</version>
+			</dependency>
+	
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-log4j12</artifactId>
+				<scope>provided</scope>
+				<version>${slf4j-version}</version>
+			</dependency>
+	
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>jcl-over-slf4j</artifactId>
+				<scope>provided</scope>
+				<version>${slf4j-version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>org.apache.servicemix.bundles</groupId>
+				<artifactId>org.apache.servicemix.bundles.commons-lang</artifactId>
+				<version>${commons-lang-version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+</project>

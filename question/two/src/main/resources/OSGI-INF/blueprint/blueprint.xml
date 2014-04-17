@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd">
+
+	<reference id="questionManager" interface="fr.netapsys.devoxx.core.api.question.QuestionManager" />
+	
+	<bean id="question2" class="fr.netapsys.devoxx.core.api.question.Question" scope="prototype">
+		<property name="id" value="#0002" />
+		<property name="question" value="En quelle année Christophe Colomb a-t-il découvert l'Amérique ?" />
+		<property name="response" value="1492" />
+	</bean>
+	
+	<bean id="question2Recorder"  class="fr.netapsys.devoxx.core.api.question.QuestionRecorderImpl" init-method="register" destroy-method="unregister">
+		<property name="question" ref="question2" />
+		<property name="questionManager" ref="questionManager" />
+	</bean>
+	
+</blueprint>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd">
+
+	<property-placeholder persistent-id="fr.netapsys.devoxx.core.engine" update-strategy="reload" xmlns="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0"/>
+	
+	<camelContext id="engineCamelContext" autoStartup="true" trace="true" xmlns="http://camel.apache.org/schema/blueprint">
+		<jmxAgent id="agent" disabled="true"/>
+		<routeBuilder ref="quizzEngine" />
+	</camelContext>
+	
+	<bean id="quizzEngine" class="fr.netapsys.devoxx.core.engine.quiz.QuizEngine">
+	</bean>
+	
+	<service interface="fr.netapsys.devoxx.core.api.question.QuestionManager" ref="questionManager"/>
+
+	<bean id="questionManager" class="fr.netapsys.devoxx.core.engine.question.QuestionManagerImpl" init-method="init">
+		<property name="camelContext" ref="engineCamelContext" />
+	</bean>
+	
+	<bean id="responseProcessor" class="fr.netapsys.devoxx.core.engine.quiz.processor.ResponseProcessor">
+		<property name="questionManager" ref="questionManager" />
+	</bean>
+	
+	<bean id="jmsConfig" class="org.apache.camel.component.jms.JmsConfiguration">
+		<property name="connectionFactory" ref="jmsFactory" />
+		<property name="transacted" value="false" />
+		<property name="concurrentConsumers" value="${jms.broker.concurrentConsumers}" />
+	</bean>
+
+	<bean id="activemq" class="org.apache.activemq.camel.component.ActiveMQComponent">
+		<property name="configuration" ref="jmsConfig" />
+		<property name="connectionFactory" ref="jmsFactory" />
+	</bean>
+	
+	<bean id="jmsFactory" class="org.apache.activemq.pool.PooledConnectionFactory"
+		destroy-method="stop">
+		<property name="maxConnections" value="${jms.broker.maxConnections}" />
+		<property name="maximumActiveSessionPerConnection" value="${jms.broker.maximumActive}" />
+		<property name="connectionFactory">
+			<bean class="org.apache.activemq.ActiveMQConnectionFactory">
+				<property name="brokerURL" value="${jms.broker.url}" />
+			</bean>
+		</property>
+	</bean>
+	
+</blueprint>

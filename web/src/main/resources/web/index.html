@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html xmlns:ng="http://angularjs.org" lang="fr" ng-app="quizz">
+	<head>
+		<title>Devoxx - Quizz</title>
+	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+	    <link rel="stylesheet" href="css/vendor/bootstrap.min.css">
+	    <link rel="stylesheet" href="css/quizz.css">
+	</head>
+	
+	<body ng-controller="quizzController">
+		<div class="container-fluid">
+			
+			<div class="well">
+				<div class="span10">
+					<h1><b>{{question.id}} - {{question.question}}</b></h1>
+					<h3>Répondez par mail à : <b>devoxx@netapsys.fr</b></h3>
+				</div>
+			</div>
+			
+			<div class="alert alert-{{getLevel(response)}} alert-slim" ng-repeat="response in responses">
+				<div class="row">
+					<div class="col-md-10">
+						<h2>{{response.from}} : <b>{{response.response}}</b></h2>
+					</div>
+					<div class="col-md-2">
+						<h1 ng-show="response.matchQuestion">Vrai !</h1>
+						<h1 ng-hide="response.matchQuestion">Faux !</h1>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+		
+	    <script src="js/vendor/angular.min.js"></script>
+	    <script src="js/quizz.js"></script>
+	    <script src="js/quizzService.js"></script>
+		
+	</body>
+</html>
